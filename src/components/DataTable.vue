@@ -3,16 +3,19 @@
     <v-card class="vCard">
       <v-card-title class="vCard">{{time}}</v-card-title>
     </v-card>
-    <v-tabs v-model="activeTab" @change="switchTab">
+    <!-- <v-tabs v-model="activeTab" @change="switchTab"> -->
+    <v-tabs v-model="activeTab">
       <v-tab key="tab-a">韩币->人民币</v-tab>
       <v-tab key="tab-b">人民币->韩币</v-tab>
 
     <v-tab-item key="tab-a">
       <v-data-table
-        class="table"
         :headers="headersTabOne"
-        :items="remittanceList"
+        :items="remittanceListTabA"
         :mobile-breakpoint="0"
+        disable-pagination
+        hide-default-footer
+        class="elevation-1"
       >
         <template slot="items" slot-scope="props">
           <td class="text-xs-left">
@@ -40,10 +43,12 @@
 
     <v-tab-item key="tab-b">
       <v-data-table
-        class="table"
         :headers="headersTabTwo"
-        :items="remittanceList"
+        :items="remittanceListTabB"
         :mobile-breakpoint="0"
+        disable-pagination
+        hide-default-footer
+        class="elevation-1"
       >
         <template slot="items" slot-scope="props">
           <td class="text-xs-left">
@@ -96,7 +101,8 @@ export default {
 
       // users: [],
 
-      remittanceList:[],
+      remittanceListTabA:[],
+      remittanceListTabB:[],
       arrowRightPath:"/static/img/arrowRight.png",
       headersTabOne: [
         {
@@ -192,13 +198,29 @@ export default {
 
     getRemittanceList: function() {
       this.axios.post('http://babohama.synology.me:8888/rate/exchangeRateInfo/latestExchangeRateInfoRequest',{
-      "currencyCodeFrom": this.currencyCodeFromValue,
-      "currencyCodeTo": this.currencyCodeToValue
+      // "currencyCodeFrom": this.currencyCodeFromValue,
+      // "currencyCodeTo": this.currencyCodeToValue
+      "currencyCodeFrom": 'KRW',
+      "currencyCodeTo": 'CNY'
     }).then(response => {
       var result = response && response.data;
       console.log(JSON.stringify(result.data));
 
-      this.remittanceList = result.data;
+      this.remittanceListTabA = result.data;
+    });
+    },
+
+    getRemittanceListSecond: function() {
+      this.axios.post('http://babohama.synology.me:8888/rate/exchangeRateInfo/latestExchangeRateInfoRequest',{
+      // "currencyCodeFrom": this.currencyCodeFromValue,
+      // "currencyCodeTo": this.currencyCodeToValue
+      "currencyCodeFrom": 'CNY',
+      "currencyCodeTo": 'KRW'
+    }).then(response => {
+      var result = response && response.data;
+      console.log(JSON.stringify(result.data));
+
+      this.remittanceListTabB = result.data;
     });
     },
     getCurrentTime: function(){
@@ -213,26 +235,27 @@ export default {
         this.time = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     },
 
-    switchTab(tab){
-      if(tab === 0){
-        this.currencyCodeFromValue = 'KRW',
-        this.currencyCodeToValue = 'CNY'
-      }else{
-        this.currencyCodeFromValue = 'CNY',
-        this.currencyCodeToValue = 'KRW'
-      }
-      console.log('currencyCodeFromValue: '+this.currencyCodeFromValue);
-      console.log('currencyCodeToValue: '+this.currencyCodeToValue);
+    // switchTab(tab){
+    //   if(tab === 0){
+    //     this.currencyCodeFromValue = 'KRW',
+    //     this.currencyCodeToValue = 'CNY'
+    //   }else{
+    //     this.currencyCodeFromValue = 'CNY',
+    //     this.currencyCodeToValue = 'KRW'
+    //   }
+    //   console.log('currencyCodeFromValue: '+this.currencyCodeFromValue);
+    //   console.log('currencyCodeToValue: '+this.currencyCodeToValue);
 
-      this.getRemittanceList();
-      console.log(JSON.stringify(this.remittanceList));
-    }
+    //   this.getRemittanceList();
+    //   console.log(JSON.stringify(this.remittanceList));
+    // }
   },
 
   created() {
     const vm = this;
     vm.getCurrentTime();
-    // vm.getRemittanceList();
+    vm.getRemittanceList();
+    vm.getRemittanceListSecond();
   }
 };
 </script>
