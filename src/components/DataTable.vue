@@ -103,7 +103,7 @@ export default {
 
       remittanceListTabA:[],
       remittanceListTabB:[],
-      arrowRightPath:"/static/img/arrowRight.png",
+      arrowRightPath:"/img/arrowRight.png",
       headersTabOne: [
         {
           value: "icon",
