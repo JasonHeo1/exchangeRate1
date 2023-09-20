@@ -33,7 +33,7 @@
           <td class="text-xs-left">10,000</td>
           <td class="text-xs-left">
             <v-avatar size="20">
-              <img :src=arrowRightPath alt="avatar" />
+              <img :src="require('@/assets/img/arrowRight.png')" alt="avatar" />
             </v-avatar>
           </td>
           <td class="text-xs-left">
@@ -67,7 +67,7 @@
           <td class="text-xs-left">1</td>
           <td class="text-xs-left">
             <v-avatar size="20">
-              <img :src=arrowRightPath alt="avatar" />
+              <img :src="require('@/assets/img/arrowRight.png')"  alt="avatar" />
             </v-avatar>
           </td>
           <td class="text-xs-left">
@@ -161,7 +161,7 @@ export default {
           sortable: false
         },
         {
-          text: "App",
+          text: "App Name",
           value: "companyNmEng",
           align: "left",
           sortable: false,
