@@ -4,16 +4,18 @@ body {
   font-size: 15px;
 }
 table.v-table tbody td {
-  font-size: 12px !important;
-  font-weight: 700;
+  font-size: 15px !important;
+  font-weight: 900;
 }
+
 table.v-table th {
-  font-size: 12px !important;
+  font-size: 16px !important;
 }
 
 
 table.v-table tbody td:first-child, table.v-table tbody td:not(:first-child), table.v-table tbody th:first-child, table.v-table tbody th:not(:first-child), table.v-table thead td:first-child, table.v-table thead td:not(:first-child), table.v-table thead th:first-child, table.v-table thead th:not(:first-child) {
-  padding: 0 1px;
+  padding: 3px 2px 15px 7px;
+
 }
 
 .v-window {
@@ -26,5 +28,11 @@ table.v-table tbody td:first-child, table.v-table tbody td:not(:first-child), ta
   .v-window {
     height: 300px; /* 화면 너비가 768px 이하일 때의 높이 설정 */
     width: fit-content;
+  }
+@media screen and (min-width: 768px) and (max-width: 912px) { 
+    .v-window {
+    height: 800px; /* 화면 너비가 768px 이하일 때의 높이 설정 */
+    width: 900px;
+    }
   }
 }
