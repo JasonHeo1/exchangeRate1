@@ -1,6 +1,12 @@
 <template>
   <v-app>
-    <v-card class="vCard">
+  <v-card class="vCard" height="80px">
+    <v-img
+      :src="require('@/assets/img/yyIcon.jpg')"
+      height="100px" width="250px" class="text-center"
+    ></v-img>
+  </v-card>
+    <v-card class="vCard" height="55px">
       <v-card-title class="vCard">{{time}}</v-card-title>
     </v-card>
     <!-- <v-tabs v-model="activeTab" @change="switchTab"> -->
@@ -13,11 +19,11 @@
         :headers="headersTabOne"
         :items="remittanceListTabA"
         :mobile-breakpoint="0"
-        disable-pagination
-        hide-default-footer
+        :disable-items-per-page="true"
         class="elevation-1"
       >
         <template slot="items" slot-scope="props">
+          <tr style="height: 50px;">
           <td class="text-xs-left">
             <v-avatar size="50">
               <img :src="props.item.icon" alt="avatar" />
@@ -37,6 +43,7 @@
           <!-- <td class="text-xs-left">{{ props.item.company.name }}</td> -->
           <!-- <td class="text-xs-left">{{ props.item.website }}</td> -->
           <!-- <td class="text-xs-left">{{ props.item.address.city }}</td> -->
+          </tr>
         </template>
       </v-data-table>
     </v-tab-item>
@@ -103,7 +110,8 @@ export default {
 
       remittanceListTabA:[],
       remittanceListTabB:[],
-      arrowRightPath:"/img/arrowRight.png",
+      arrowRightPath:"/static/img/arrowRight.png",
+      yyIconPath:"/static/img/yyIcon.jpg",
       headersTabOne: [
         {
           value: "icon",
@@ -111,7 +119,7 @@ export default {
           sortable: false
         },
         {
-          text: "App Name",
+          text: "App",
           value: "companyNmEng",
           align: "left",
           sortable: false,
@@ -153,7 +161,7 @@ export default {
           sortable: false
         },
         {
-          text: "App Name",
+          text: "App",
           value: "companyNmEng",
           align: "left",
           sortable: false,
