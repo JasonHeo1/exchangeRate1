@@ -28,6 +28,7 @@ const i18n = setupAndGetI18n(Vue);
 
 import swatches from 'vue-swatches';
 import "vue-swatches/dist/vue-swatches.min.css"
+import Ads from 'vue-google-adsense'
 
 Vue.use(VueChartkick, { adapter: Chart });
 Vue.component('full-calendar', fullCalendar);
@@ -36,6 +37,10 @@ Vue.component('swatches', swatches);
 setupComponents(Vue);
 
 Vue.use(Vuetify);
+Vue.use(require('vue-script2'))
+Vue.use(Ads.Adsense) //디스플레이 광고
+Vue.use(Ads.InArticleAdsense) //콘텐츠 내 자동 삽입 광고
+Vue.use(Ads.InFeedAdsense) //인피드 광고
 
 Vue.config.productionTip = false
 

@@ -3,16 +3,18 @@
   <v-card class="vCard" height="80px">
     <v-img
       :src="require('@/assets/img/yyIcon.jpg')"
-      height="100px" width="250px" class="text-center"
+      height="80px" width="200px"
     ></v-img>
   </v-card>
-    <v-card class="vCard" height="55px">
-      <v-card-title class="vCard">{{time}}</v-card-title>
+    <v-card class="vCardTwo" height="40px" style="background-color: rgb(49, 86, 233)">
+      <span class="titleText" style="color:white">송금계의 트리바고, 호텔컴바인</span>
+      <!-- <v-card-title class="vCard">{{time}}</v-card-title> -->
+    <!-- <AdsenseVue v-bind:slot="7644074545"></AdsenseVue> -->
     </v-card>
     <!-- <v-tabs v-model="activeTab" @change="switchTab"> -->
     <v-tabs v-model="activeTab">
-      <v-tab key="tab-a">韩币->人民币</v-tab>
-      <v-tab key="tab-b">人民币->韩币</v-tab>
+      <v-tab key="tab-a">KRW->CNY</v-tab>
+      <!-- <v-tab key="tab-b">人民币->韩币</v-tab> -->
 
     <v-tab-item key="tab-a">
       <v-data-table
@@ -39,7 +41,7 @@
           <td class="text-xs-left">
             {{ (props.item.exchangeRate * 10000) | toFixed(2) }}
           </td>
-          <td class="text-xs-left">{{ props.item.exchangeRate | toFixed(4) }}</td>
+          <!-- <td class="text-xs-left">{{ props.item.exchangeRate | toFixed(4) }}</td> -->
           <!-- <td class="text-xs-left">{{ props.item.company.name }}</td> -->
           <!-- <td class="text-xs-left">{{ props.item.website }}</td> -->
           <!-- <td class="text-xs-left">{{ props.item.address.city }}</td> -->
@@ -73,7 +75,7 @@
           <td class="text-xs-left">
             {{ (props.item.exchangeRate) | toFixed(2) }}
           </td>
-          <td class="text-xs-left">{{ props.item.exchangeRate | toFixed(4) }}</td>
+          <!-- <td class="text-xs-left">{{ props.item.exchangeRate | toFixed(4) }}</td> -->
           <!-- <td class="text-xs-left">{{ props.item.company.name }}</td> -->
           <!-- <td class="text-xs-left">{{ props.item.website }}</td> -->
           <!-- <td class="text-xs-left">{{ props.item.address.city }}</td> -->
@@ -81,13 +83,24 @@
       </v-data-table>
     </v-tab-item>
     </v-tabs>
+    <span></span>
+    <v-card class="vCard" height="55px">
+      <span class="spanText">
+      **환율 app 정보 확장 중. 
+      환율은 실시간 환율과 다소 차이가 있을 수 있습니다.
+      <br>上述汇率与实时汇率间可能存在误差。</span>
+    </v-card>
   </v-app>
 
 </template>
 
 <script>
+import AdsenseVue from './Adsense.vue';
 
 export default {
+  components:{
+      AdsenseVue,
+    },
   filters: {
     dateFormat: function(val, format) {
       return moment(val).format(format);
@@ -146,13 +159,13 @@ export default {
           sortable: false,
           align: "left"
         },
-        {
-          text: "Rate",
-          value: "exchangeRate",
-          align: "left",
-          sortable: false,
-          align: "left"
-        }
+        // {
+        //   text: "Rate",
+        //   value: "exchangeRate",
+        //   align: "left",
+        //   sortable: false,
+        //   align: "left"
+        // }
       ],
       headersTabTwo: [
         {
@@ -188,13 +201,13 @@ export default {
           sortable: false,
           align: "left"
         },
-        {
-          text: "Rate",
-          value: "exchangeRate",
-          align: "left",
-          sortable: false,
-          align: "left"
-        }
+        // {
+        //   text: "Rate",
+        //   value: "exchangeRate",
+        //   align: "left",
+        //   sortable: false,
+        //   align: "left"
+        // }
       ]
     };
   },
@@ -205,7 +218,8 @@ export default {
     // },
 
     getRemittanceList: function() {
-      this.axios.post('http://babohama.synology.me:8888/rate/exchangeRateInfo/latestExchangeRateInfoRequest',{
+      this.axios.post('http://admin.yyhq.kr:8888/rate/exchangeRateInfo/latestExchangeRateInfoRequest',{
+      // this.axios.post('http://babohama.synology.me:8888/rate/exchangeRateInfo/latestExchangeRateInfoRequest',{
       // "currencyCodeFrom": this.currencyCodeFromValue,
       // "currencyCodeTo": this.currencyCodeToValue
       "currencyCodeFrom": 'KRW',
@@ -219,7 +233,8 @@ export default {
     },
 
     getRemittanceListSecond: function() {
-      this.axios.post('http://babohama.synology.me:8888/rate/exchangeRateInfo/latestExchangeRateInfoRequest',{
+      this.axios.post('http://admin.yyhq.kr:8888/rate/exchangeRateInfo/latestExchangeRateInfoRequest',{
+      // this.axios.post('http://babohama.synology.me:8888/rate/exchangeRateInfo/latestExchangeRateInfoRequest',{
       // "currencyCodeFrom": this.currencyCodeFromValue,
       // "currencyCodeTo": this.currencyCodeToValue
       "currencyCodeFrom": 'CNY',
@@ -263,7 +278,7 @@ export default {
     const vm = this;
     vm.getCurrentTime();
     vm.getRemittanceList();
-    vm.getRemittanceListSecond();
+    // vm.getRemittanceListSecond();
   }
 };
 </script>
@@ -290,5 +305,28 @@ export default {
   font-weight: bold;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 18px;
+  margin-top: 5px;
+}
+.vCardTwo {
+  border-radius: 10px;
+  background-color: rgb(49, 86, 233);
+  font-weight: 900;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin-top: 5px;
+  margin-bottom: 1px;
+  padding-left: 60px;
+  padding-top: 10px;
+}
+.spanText {
+  margin-block: inherit;
+  font-size: 5px;
+  font-style: italic;
+  color: coral;
+}
+.titleText {
+  font-size: 15px;
+  font-style: italic;
+  color: blue;
+  position: center;
 }
 </style>
